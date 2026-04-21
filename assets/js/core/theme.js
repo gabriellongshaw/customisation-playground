@@ -4,10 +4,10 @@ import { updateIcon } from '../components/icon.js';
 import { syncSliders } from './sliders.js';
 import { getElements } from './elements.js';
 
-export let currentThemeSource = 'system';
+export const themeState = { source: 'system' };
 
 export function setThemeSource(source) {
-  currentThemeSource = source;
+  themeState.source = source;
 }
 
 export function applyTheme(theme) {
@@ -86,7 +86,7 @@ export function applyTheme(theme) {
 }
 
 export function handleSystemThemeChange() {
-  if (currentThemeSource === 'system') {
+  if (themeState.source === 'system') {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
     applyTheme(prefersDark.matches ? 'dark' : 'light');
   }
@@ -96,10 +96,10 @@ export function initTheme() {
   const savedThemeSource = localStorage.getItem('themeSource');
 
   if (savedThemeSource === 'light' || savedThemeSource === 'dark') {
-    currentThemeSource = savedThemeSource;
+    themeState.source = savedThemeSource;
     applyTheme(savedThemeSource);
   } else {
-    currentThemeSource = 'system';
+    themeState.source = 'system';
     handleSystemThemeChange();
   }
 }

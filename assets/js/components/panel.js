@@ -1,7 +1,7 @@
 import { hexToRgb } from '../core/utils.js';
 import { updateSliderFill, syncSliders } from '../core/sliders.js';
 import { getElements } from '../core/elements.js';
-import { currentThemeSource } from '../core/theme.js';
+import { themeState } from '../core/theme.js';
 
 export function updatePanel() {
   const { controls, panelBg, panelText, panelWidth, panelRadius, panelBlur, panelTransparency } = getElements();
@@ -25,7 +25,7 @@ export function initPanel() {
   });
 
   resetPanelBtn.addEventListener('click', () => {
-    if (currentThemeSource === 'light' || currentThemeSource === 'system') {
+    if (themeState.source === 'light' || themeState.source === 'system') {
       panelBg.value = '#ffffff';
       panelText.value = '#000000';
       panelBlur.value = 30;

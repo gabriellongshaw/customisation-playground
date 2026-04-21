@@ -1,7 +1,7 @@
-import { hexToRgb } from '../core/utils.js';
+import { hexToRgb, makeDraggable } from '../core/utils.js';
 import { updateSliderFill, syncSliders } from '../core/sliders.js';
 import { getElements } from '../core/elements.js';
-import { currentThemeSource } from '../core/theme.js';
+import { themeState } from '../core/theme.js';
 
 export function updateIcon() {
   const { controlsIcon, iconColor, iconBg, iconTransparency, iconBlur, iconRadius } = getElements();
@@ -32,7 +32,7 @@ export function initIcon() {
 
   if (resetIconBtn) {
     resetIconBtn.addEventListener('click', () => {
-      if (currentThemeSource === 'light' || currentThemeSource === 'system') {
+      if (themeState.source === 'light' || themeState.source === 'system') {
         if (iconColor) iconColor.value = '#ffffff';
         if (iconBg) iconBg.value = '#ffffff';
         if (iconTransparency) iconTransparency.value = 5;
@@ -52,6 +52,8 @@ export function initIcon() {
   }
 
   if (controlsIcon && controls) {
+    makeDraggable(controlsIcon);
+
     function setTransformOriginToIcon() {
       const iconRect = controlsIcon.getBoundingClientRect();
       const panelRect = controls.getBoundingClientRect();

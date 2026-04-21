@@ -8,7 +8,7 @@ import { initIcon } from './components/icon.js';
 import { initTabs } from './components/tabs.js';
 import { initThemeControls } from './components/themeControls.js';
 
-const { box, controlsIcon, controls, resetBtn, resetPanelBtn, resetIconBtn } = getElements();
+const { box, controls, resetBtn, resetPanelBtn, resetIconBtn } = getElements();
 
 initBox();
 initPanel();
@@ -17,7 +17,6 @@ initTabs();
 initThemeControls();
 
 makeDraggable(box);
-makeDraggable(controlsIcon);
 makeDraggable(controls);
 
 resetBtn.click();
