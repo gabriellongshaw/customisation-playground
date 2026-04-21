@@ -16,12 +16,39 @@ function showOnly(elToShow) {
 
   if (elToShow) {
     elToShow.style.display = 'block';
+    elToShow.style.transition = 'none';
+    elToShow.style.opacity = '1';
+    elToShow.style.maxHeight = 'none';
+  }
+}
+
+function showOnlyAnimated(elToShow) {
+  const { generalSettings, boxSettings, panelSettings, iconSettings } = getElements();
+  const allTabs = [generalSettings, boxSettings, panelSettings, iconSettings];
+
+  allTabs.filter(el => el !== elToShow).forEach(el => {
+    if (!el) return;
+    if (el.style.display !== 'none') {
+      el.style.transition = 'max-height 0.2s ease, opacity 0.2s ease';
+      el.style.maxHeight = el.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        el.style.maxHeight = '0';
+        el.style.opacity = '0';
+      });
+      setTimeout(() => { el.style.display = 'none'; }, 220);
+    }
+  });
+
+  if (elToShow) {
+    elToShow.style.display = 'block';
     elToShow.style.maxHeight = '0';
     elToShow.style.opacity = '0';
     requestAnimationFrame(() => {
-      elToShow.style.transition = 'max-height 0.3s ease, opacity 0.3s ease';
-      elToShow.style.maxHeight = elToShow.scrollHeight + 'px';
-      elToShow.style.opacity = '1';
+      requestAnimationFrame(() => {
+        elToShow.style.transition = 'max-height 0.3s ease, opacity 0.3s ease';
+        elToShow.style.maxHeight = elToShow.scrollHeight + 'px';
+        elToShow.style.opacity = '1';
+      });
     });
   }
 }
@@ -42,24 +69,24 @@ export function initTabs() {
   if (tabGeneralBtn && generalSettings) {
     tabGeneralBtn.addEventListener('click', () => {
       setActiveTab(tabGeneralBtn);
-      showOnly(generalSettings);
+      showOnlyAnimated(generalSettings);
     });
   }
 
   tabBoxBtn.addEventListener('click', () => {
     setActiveTab(tabBoxBtn);
-    showOnly(boxSettings);
+    showOnlyAnimated(boxSettings);
   });
 
   tabControlsBtn.addEventListener('click', () => {
     setActiveTab(tabControlsBtn);
-    showOnly(panelSettings);
+    showOnlyAnimated(panelSettings);
   });
 
   if (tabIconBtn && iconSettings) {
     tabIconBtn.addEventListener('click', () => {
       setActiveTab(tabIconBtn);
-      showOnly(iconSettings);
+      showOnlyAnimated(iconSettings);
     });
   }
 }
