@@ -8,20 +8,17 @@
 </head>
 <body class="light">
   <div class="box" id="box">Cool Button</div>
-
   <div class="controls" id="controlsBox">
     <div class="controls-header">
       <h2>Settings</h2>
       <button id="closeControls" class="close-button">✕</button>
     </div>
-
     <div class="tab-buttons">
       <button id="tabGeneral" class="active">General</button>
       <button id="tabBox">Button Settings</button>
       <button id="tabControls">Panel Settings</button>
       <button id="tabIcon">Icon Settings</button>
     </div>
-    
     <div class="controls-content-wrapper">
       <div class="tab-content general-settings" id="generalSettings" style="display:block;">
         <label>Theme</label>
@@ -31,7 +28,6 @@
         </div>
         <button class="reset-button reset-all" id="resetAllBtn" style="margin-top: 15px;">Reset All to Default</button>
       </div>
-      
       <div class="tab-content box-settings" id="boxSettings" style="display:none;">
         <label>Text <input type="text" class="input-text" id="boxText" value="Cool Button"></label>
         <label>Background Color <input type="color" class="input-color" id="bgColor" value="#ffffff"></label>
@@ -42,7 +38,6 @@
         <label>Blur (backdrop) <input type="range" class="input-range" id="blur" min="0" max="100" value="3"></label>
         <button class="reset-button reset-box" id="resetBtn">Reset Button</button>
       </div>
-
       <div class="tab-content panel-settings" id="panelSettings" style="display:none;">
         <label>Panel Background <input type="color" class="input-color" id="panelBg" value="#ffffff"></label>
         <label>Panel Transparency <input type="range" class="input-range" id="panelTransparency" min="0" max="100" value="85"></label>
@@ -52,7 +47,6 @@
         <label>Panel Blur <input type="range" class="input-range" id="panelBlur" min="0" max="100" value="0"></label>
         <button class="reset-button reset-panel" id="resetPanelBtn">Reset Panel</button>
       </div>
-
       <div class="tab-content icon-settings" id="iconSettings" style="display:none;">
         <div class="controls-header">
           <h2>Icon Settings</h2>
@@ -66,13 +60,11 @@
       </div>
     </div>
   </div>
-
   <div id="controlsIcon" class="icon-button">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
       <path d="M19.43 12.98c.04-.32.07-.65.07-.98s-.03-.66-.07-.98l2.11-1.65a.5.5 0 00.12-.66l-2-3.46a.5.5 0 00-.61-.22l-2.49 1a7.07 7.07 0 00-1.7-.98l-.38-2.65A.5.5 0 0014 2h-4a.5.5 0 00-.5.42l-.38 2.65a7.07 7.07 0 00-1.7.98l-2.49-1a.5.5 0 00-.61.22l-2 3.46a.5.5 0 00.12.66l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65a.5.5 0 00-.12.66l2 3.46c.14.24.42.33.68.22l2.49-1c.52.4 1.1.72 1.7.98l.38 2.65c.04.25.25.42.5.42h4c.25 0 .46-.17.5-.42l.38-2.65c.6-.26 1.18-.58 1.7-.98l2.49 1c.26.11.54.02.68-.22l2-3.46a.5.5 0 00-.12-.66l-2.11-1.65zM12 15.5A3.5 3.5 0 1115.5 12 3.5 3.5 0 0112 15.5z"/>
     </svg>
   </div>
-
   <script src="assets/js/main.js"></script>
 </body>
 </html>
