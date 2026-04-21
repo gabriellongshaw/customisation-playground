@@ -1,0 +1,41 @@
+:root {
+  --color-panel-bg-base: 255, 255, 255;
+  --color-panel-text: #000000;
+  --color-panel-tab-active: #1e88e5;
+  --color-panel-tab-inactive: #e0e0e0;
+  --color-panel-tab-text: #000000;
+  --color-panel-input-bg: rgba(0, 0, 0, 0.05);
+  --color-panel-input-border: rgba(0, 0, 0, 0.1);
+  --color-panel-slider-fill: #1e88e5;
+  --color-panel-slider-track: #ccc;
+  --color-panel-slider-thumb: #1e88e5;
+  --color-panel-reset-bg: rgba(0, 0, 0, 0.1);
+  --color-panel-reset-hover-bg: rgba(0, 0, 0, 0.2);
+  --color-box-bg-base: 255, 255, 255;
+  --color-box-text: white;
+  --color-box-shadow-inset: rgba(255, 255, 255, 0.3);
+  --color-icon-bg-base: 255, 255, 255;
+  --color-icon-text: white;
+  --color-icon-shadow-inset: rgba(255, 255, 255, 0.3);
+}
+
+body.dark {
+  --color-panel-bg-base: 34, 34, 34;
+  --color-panel-text: #ffffff;
+  --color-panel-tab-active: #1e88e5;
+  --color-panel-tab-inactive: #444;
+  --color-panel-tab-text: #ffffff;
+  --color-panel-input-bg: rgba(255, 255, 255, 0.1);
+  --color-panel-input-border: transparent;
+  --color-panel-slider-fill: #ffffff;
+  --color-panel-slider-track: #888;
+  --color-panel-slider-thumb: #ffffff;
+  --color-panel-reset-bg: rgba(255, 255, 255, 0.1);
+  --color-panel-reset-hover-bg: rgba(255, 255, 255, 0.2);
+  --color-box-bg-base: 17, 17, 17;
+  --color-box-text: #eeeeee;
+  --color-box-shadow-inset: rgba(0, 0, 0, 0.4);
+  --color-icon-bg-base: 17, 17, 17;
+  --color-icon-text: #ffffff;
+  --color-icon-shadow-inset: rgba(0, 0, 0, 0.4);
+}

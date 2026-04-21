@@ -1,0 +1,56 @@
+.controls {
+  position: absolute;
+  top: 200px;
+  left: 50px;
+  padding: 15px;
+  border-radius: 12px;
+  backdrop-filter: blur(0px);
+  width: 260px;
+  transform-origin: bottom left;
+  opacity: 0;
+  transform: scale(0.4);
+  pointer-events: none;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease, background 0.2s ease, color 0.2s ease, width 0.2s ease, border-radius 0.2s ease, backdrop-filter 0.2s ease;
+  background-color: rgba(var(--color-panel-bg-base), 0.90);
+  color: var(--color-panel-text);
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.controls.open {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: grab;
+}
+
+.controls-header:active {
+  cursor: grabbing;
+}
+
+.controls-content-wrapper {
+  overflow-y: auto;
+  max-height: calc(80vh - 100px);
+  padding-right: 5px;
+  margin-right: -5px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.controls h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--color-panel-text);
+}
+
+.controls label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+}

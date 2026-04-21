@@ -2,9 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customisation Playground</title>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <meta name="description" content="An interactive customisation playground. Tweak the button, panel and icon to your liking.">
+  <meta name="keywords" content="Customisation Playground, cool button, interactive UI">
+  <meta name="author" content="Gabriel Longshaw">
+  <meta property="og:site_name" content="Customisation Playground">
+  <meta property="og:title" content="Customisation Playground">
+  <meta property="og:description" content="An interactive customisation playground. Tweak the button, panel and icon to your liking.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Customisation Playground">
+  <meta name="twitter:description" content="An interactive customisation playground. Tweak the button, panel and icon to your liking.">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components/controls.css">
+  <link rel="stylesheet" href="assets/css/components/inputs.css">
+  <link rel="stylesheet" href="assets/css/components/buttons.css">
+  <link rel="stylesheet" href="assets/css/components/tabs.css">
+  <link rel="stylesheet" href="assets/css/components/icon.css">
 </head>
 <body class="light">
   <div class="box" id="box">Cool Button</div>
@@ -23,8 +39,8 @@
       <div class="tab-content general-settings" id="generalSettings" style="display:block;">
         <label>Theme</label>
         <div class="theme-buttons">
-            <button id="lightModeBtn" class="theme-btn active" data-theme="light">Light Mode</button>
-            <button id="darkModeBtn" class="theme-btn" data-theme="dark">Dark Mode</button>
+          <button id="lightModeBtn" class="theme-btn active" data-theme="light">Light Mode</button>
+          <button id="darkModeBtn" class="theme-btn" data-theme="dark">Dark Mode</button>
         </div>
         <button class="reset-button reset-all" id="resetAllBtn" style="margin-top: 15px;">Reset All to Default</button>
       </div>
@@ -65,6 +81,6 @@
       <path d="M19.43 12.98c.04-.32.07-.65.07-.98s-.03-.66-.07-.98l2.11-1.65a.5.5 0 00.12-.66l-2-3.46a.5.5 0 00-.61-.22l-2.49 1a7.07 7.07 0 00-1.7-.98l-.38-2.65A.5.5 0 0014 2h-4a.5.5 0 00-.5.42l-.38 2.65a7.07 7.07 0 00-1.7.98l-2.49-1a.5.5 0 00-.61.22l-2 3.46a.5.5 0 00.12.66l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65a.5.5 0 00-.12.66l2 3.46c.14.24.42.33.68.22l2.49-1c.52.4 1.1.72 1.7.98l.38 2.65c.04.25.25.42.5.42h4c.25 0 .46-.17.5-.42l.38-2.65c.6-.26 1.18-.58 1.7-.98l2.49 1c.26.11.54.02.68-.22l2-3.46a.5.5 0 00-.12-.66l-2.11-1.65zM12 15.5A3.5 3.5 0 1115.5 12 3.5 3.5 0 0112 15.5z"/>
     </svg>
   </div>
-  <script src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/init.js"></script>
 </body>
 </html>
