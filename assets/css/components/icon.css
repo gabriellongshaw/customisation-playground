@@ -1,7 +1,7 @@
 .icon-button {
   position: fixed;
-  bottom: clamp(20px, 12.5vh + env(safe-area-inset-bottom), 8px);
-  left: 5vw;
+  bottom: 2rem;
+  left: 2rem;
   width: 55px;
   height: 55px;
   display: flex;
