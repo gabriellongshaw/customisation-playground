@@ -10,6 +10,13 @@ export function setThemeSource(source) {
   themeState.source = source;
 }
 
+export function getEffectiveTheme() {
+  if (themeState.source === 'system') {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  return themeState.source;
+}
+
 export function applyTheme(theme) {
   const { body, root, panelBg, panelText, bgColor, textColor, iconBg, iconColor,
     blur, iconBlur, transparency, iconTransparency, panelBlur, panelTransparency,

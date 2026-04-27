@@ -1,7 +1,7 @@
 import { hexToRgb } from '../core/utils.js';
-import { updateSliderFill } from '../core/sliders.js';
+import { updateSliderFill, syncSliders } from '../core/sliders.js';
 import { getElements } from '../core/elements.js';
-import { themeState } from '../core/theme.js';
+import { getEffectiveTheme } from '../core/theme.js';
 
 export function updateBox() {
   const { box, boxText, bgColor, textColor, boxWidth, borderRadius, blur, transparency } = getElements();
@@ -26,23 +26,24 @@ export function initBox() {
   });
 
   resetBtn.addEventListener('click', () => {
-    if (themeState.source === 'light' || themeState.source === 'system') {
-      boxText.value = 'Customisable Button';
-      bgColor.value = '#ffffff';
-      textColor.value = '#ffffff';
-      blur.value = 3;
-      transparency.value = 5;
-    } else {
+    if (getEffectiveTheme() === 'dark') {
       boxText.value = 'Customisable Button';
       bgColor.value = '#111111';
       textColor.value = '#eeeeee';
       blur.value = 12;
       transparency.value = 50;
+    } else {
+      boxText.value = 'Customisable Button';
+      bgColor.value = '#ffffff';
+      textColor.value = '#ffffff';
+      blur.value = 3;
+      transparency.value = 5;
     }
 
     boxWidth.value = 200;
     borderRadius.value = 8;
 
     updateBox();
+    syncSliders();
   });
 }

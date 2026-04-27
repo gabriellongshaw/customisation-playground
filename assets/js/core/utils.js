@@ -52,7 +52,11 @@ export function makeDraggable(el) {
 
     el.style.left = clientX - offsetX + 'px';
     el.style.top = clientY - offsetY + 'px';
-    el.style.transform = 'none';
+    if (isControlsPanel) {
+      el.style.transform = 'scale(1)';
+    } else {
+      el.style.transform = 'none';
+    }
 
     hasMoved = true;
     e.preventDefault();

@@ -1,5 +1,5 @@
 import { getElements } from '../core/elements.js';
-import { applyTheme, handleSystemThemeChange, setThemeSource, themeState } from '../core/theme.js';
+import { applyTheme, handleSystemThemeChange, setThemeSource } from '../core/theme.js';
 
 export function initThemeControls() {
   const { lightModeBtn, darkModeBtn, resetAllBtn, resetBtn, resetPanelBtn, resetIconBtn } = getElements();

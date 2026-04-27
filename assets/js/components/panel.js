@@ -1,7 +1,7 @@
 import { hexToRgb } from '../core/utils.js';
 import { updateSliderFill, syncSliders } from '../core/sliders.js';
 import { getElements } from '../core/elements.js';
-import { themeState } from '../core/theme.js';
+import { getEffectiveTheme } from '../core/theme.js';
 
 export function updatePanel() {
   const { controls, panelBg, panelText, panelWidth, panelRadius, panelBlur, panelTransparency } = getElements();
@@ -25,16 +25,16 @@ export function initPanel() {
   });
 
   resetPanelBtn.addEventListener('click', () => {
-    if (themeState.source === 'light' || themeState.source === 'system') {
-      panelBg.value = '#ffffff';
-      panelText.value = '#000000';
-      panelBlur.value = 30;
-      panelTransparency.value = 70;
-    } else {
+    if (getEffectiveTheme() === 'dark') {
       panelBg.value = '#222222';
       panelText.value = '#ffffff';
       panelBlur.value = 12;
       panelTransparency.value = 90;
+    } else {
+      panelBg.value = '#ffffff';
+      panelText.value = '#000000';
+      panelBlur.value = 30;
+      panelTransparency.value = 70;
     }
 
     panelWidth.value = 300;

@@ -1,7 +1,7 @@
 import { hexToRgb, makeDraggable } from '../core/utils.js';
 import { updateSliderFill, syncSliders } from '../core/sliders.js';
 import { getElements } from '../core/elements.js';
-import { themeState } from '../core/theme.js';
+import { getEffectiveTheme } from '../core/theme.js';
 
 export function updateIcon() {
   const { controlsIcon, iconColor, iconBg, iconTransparency, iconBlur, iconRadius } = getElements();
@@ -32,16 +32,16 @@ export function initIcon() {
 
   if (resetIconBtn) {
     resetIconBtn.addEventListener('click', () => {
-      if (themeState.source === 'light' || themeState.source === 'system') {
-        if (iconColor) iconColor.value = '#ffffff';
-        if (iconBg) iconBg.value = '#ffffff';
-        if (iconTransparency) iconTransparency.value = 5;
-        if (iconBlur) iconBlur.value = 3;
-      } else {
+      if (getEffectiveTheme() === 'dark') {
         if (iconColor) iconColor.value = '#ffffff';
         if (iconBg) iconBg.value = '#111111';
         if (iconTransparency) iconTransparency.value = 50;
         if (iconBlur) iconBlur.value = 12;
+      } else {
+        if (iconColor) iconColor.value = '#ffffff';
+        if (iconBg) iconBg.value = '#ffffff';
+        if (iconTransparency) iconTransparency.value = 5;
+        if (iconBlur) iconBlur.value = 3;
       }
 
       if (iconRadius) iconRadius.value = 50;
@@ -63,12 +63,18 @@ export function initIcon() {
     }
 
     function openPanel() {
-      setTransformOriginToIcon();
       controls.style.display = 'block';
+
       requestAnimationFrame(() => {
-        controls.classList.add('open');
-        controls.style.opacity = '1';
-        controls.style.transform = 'scale(1)';
+        setTransformOriginToIcon();
+        controls.style.transform = 'scale(0.4)';
+        controls.style.opacity = '0';
+
+        requestAnimationFrame(() => {
+          controls.style.transform = '';
+          controls.style.opacity = '';
+          controls.classList.add('open');
+        });
       });
 
       controlsIcon.style.transition = 'transform 0.3s cubic-bezier(0.25,1,0.5,1), opacity 0.3s ease';
@@ -80,11 +86,11 @@ export function initIcon() {
     function closePanel() {
       setTransformOriginToIcon();
       controls.classList.remove('open');
-      controls.style.opacity = '0';
-      controls.style.transform = 'scale(0.4)';
 
       setTimeout(() => {
         controls.style.display = 'none';
+        controls.style.transform = '';
+        controls.style.opacity = '';
       }, 350);
 
       controlsIcon.style.pointerEvents = 'auto';
