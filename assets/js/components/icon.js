@@ -54,48 +54,106 @@ export function initIcon() {
   if (controlsIcon && controls) {
     makeDraggable(controlsIcon);
 
-    function setTransformOriginToIcon() {
+    const DURATION = 320;
+    const CLOSE_DURATION = 160;
+    const EASING = 'cubic-bezier(0.25, 1, 0.5, 1)';
+    let isOpen = false;
+    let currentAnim = null;
+    let currentIconAnim = null;
+
+    function getOrigin() {
       const iconRect = controlsIcon.getBoundingClientRect();
       const panelRect = controls.getBoundingClientRect();
-      const originX = ((iconRect.left + iconRect.width / 2) - panelRect.left) / panelRect.width * 100;
-      const originY = ((iconRect.top + iconRect.height / 2) - panelRect.top) / panelRect.height * 100;
-      controls.style.transformOrigin = `${originX}% ${originY}%`;
+      const iconCx = iconRect.left + iconRect.width / 2;
+      const iconCy = iconRect.top + iconRect.height / 2;
+      const ox = iconCx - panelRect.left;
+      const oy = iconCy - panelRect.top;
+      return `${ox}px ${oy}px`;
     }
 
     function openPanel() {
+      if (isOpen) return;
+      isOpen = true;
+
+      if (currentAnim) currentAnim.cancel();
+      if (currentIconAnim) currentIconAnim.cancel();
+
       controls.style.display = 'block';
+      controls.classList.add('open');
+      // Force a layout flush so getBoundingClientRect() in getOrigin() is accurate
+      void controls.offsetWidth;
 
-      requestAnimationFrame(() => {
-        setTransformOriginToIcon();
-        controls.style.transform = 'scale(0.4)';
-        controls.style.opacity = '0';
-
-        requestAnimationFrame(() => {
-          controls.style.transform = '';
-          controls.style.opacity = '';
-          controls.classList.add('open');
-        });
-      });
-
-      controlsIcon.style.transition = 'transform 0.3s cubic-bezier(0.25,1,0.5,1), opacity 0.3s ease';
-      controlsIcon.style.transform = 'scale(0.7) rotate(45deg)';
-      controlsIcon.style.opacity = '0';
+      currentIconAnim = controlsIcon.animate(
+        [
+          { transform: 'scale(1) rotate(0deg)', opacity: '1' },
+          { transform: 'scale(0.6) rotate(45deg)', opacity: '0' }
+        ],
+        { duration: DURATION * 0.7, easing: 'ease-in', fill: 'forwards' }
+      );
+      currentIconAnim.onfinish = () => {
+        controlsIcon.style.opacity = '0';
+        controlsIcon.style.pointerEvents = 'none';
+        currentIconAnim = null;
+      };
       controlsIcon.style.pointerEvents = 'none';
+
+      const origin = getOrigin();
+      controls.style.transformOrigin = origin;
+
+      currentAnim = controls.animate(
+        [
+          { transform: 'scale(0.3)', opacity: '0' },
+          { transform: 'scale(1)',   opacity: '1' }
+        ],
+        { duration: DURATION, easing: EASING, fill: 'forwards' }
+      );
+
+      currentAnim.onfinish = () => {
+        controls.style.transform = '';
+        controls.style.opacity = '';
+        currentAnim = null;
+      };
     }
 
     function closePanel() {
-      setTransformOriginToIcon();
-      controls.classList.remove('open');
+      if (!isOpen) return;
+      isOpen = false;
 
-      setTimeout(() => {
+      if (currentAnim) currentAnim.cancel();
+      if (currentIconAnim) currentIconAnim.cancel();
+
+      const origin = getOrigin();
+      controls.style.transformOrigin = origin;
+
+      currentAnim = controls.animate(
+        [
+          { transform: 'scale(1)',   opacity: '1' },
+          { transform: 'scale(0.3)', opacity: '0' }
+        ],
+        { duration: CLOSE_DURATION, easing: 'ease-in', fill: 'forwards' }
+      );
+
+      currentAnim.onfinish = () => {
         controls.style.display = 'none';
         controls.style.transform = '';
         controls.style.opacity = '';
-      }, 350);
+        controls.classList.remove('open');
+        currentAnim = null;
+      };
 
+      controlsIcon.style.opacity = '';
       controlsIcon.style.pointerEvents = 'auto';
-      controlsIcon.style.transform = 'scale(1) rotate(0deg)';
-      controlsIcon.style.opacity = '1';
+      currentIconAnim = controlsIcon.animate(
+        [
+          { transform: 'scale(0.6) rotate(45deg)', opacity: '0' },
+          { transform: 'scale(1) rotate(0deg)',     opacity: '1' }
+        ],
+        { duration: CLOSE_DURATION, easing: EASING, fill: 'forwards' }
+      );
+      currentIconAnim.onfinish = () => {
+        controlsIcon.style.transform = '';
+        currentIconAnim = null;
+      };
     }
 
     controlsIcon.addEventListener('click', openPanel);
