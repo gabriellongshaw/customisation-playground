@@ -17,6 +17,8 @@ export function updatePanel() {
 export function initPanel() {
   const { panelBg, panelText, panelWidth, panelRadius, panelBlur, panelTransparency, resetPanelBtn } = getElements();
 
+  panelWidth.value = window.innerWidth >= 600 ? 360 : 300;
+
   [panelBg, panelText, panelWidth, panelRadius, panelBlur, panelTransparency].forEach(input => {
     input.addEventListener('input', () => {
       updatePanel();
@@ -33,11 +35,11 @@ export function initPanel() {
     } else {
       panelBg.value = '#ffffff';
       panelText.value = '#000000';
-      panelBlur.value = 30;
+      panelBlur.value = 20;
       panelTransparency.value = 70;
     }
 
-    panelWidth.value = 300;
+    panelWidth.value = window.innerWidth >= 600 ? 360 : 300;
     panelRadius.value = 12;
 
     updatePanel();

@@ -4,8 +4,29 @@
   margin-bottom: 10px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: 5px;
   -webkit-overflow-scrolling: touch;
+  scrollbar-color: transparent transparent;
+}
+
+.tab-buttons:hover {
+  scrollbar-color: rgba(128, 128, 128, 0.4) transparent;
+}
+
+.tab-buttons::-webkit-scrollbar {
+  height: 3px;
+}
+
+.tab-buttons::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tab-buttons::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.tab-buttons:hover::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.4);
 }
 
 .tab-buttons button {
