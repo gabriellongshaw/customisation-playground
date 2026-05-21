@@ -59,7 +59,6 @@ export function initIcon() {
     const EASING = 'cubic-bezier(0.25, 1, 0.5, 1)';
     let isOpen = false;
     let currentAnim = null;
-    let currentIconAnim = null;
 
     function getOrigin() {
       const iconRect = controlsIcon.getBoundingClientRect();
@@ -76,26 +75,10 @@ export function initIcon() {
       isOpen = true;
 
       if (currentAnim) currentAnim.cancel();
-      if (currentIconAnim) currentIconAnim.cancel();
 
       controls.style.display = 'block';
       controls.classList.add('open');
-      // Force a layout flush so getBoundingClientRect() in getOrigin() is accurate
       void controls.offsetWidth;
-
-      currentIconAnim = controlsIcon.animate(
-        [
-          { transform: 'scale(1) rotate(0deg)', opacity: '1' },
-          { transform: 'scale(0.6) rotate(45deg)', opacity: '0' }
-        ],
-        { duration: DURATION * 0.7, easing: 'ease-in', fill: 'forwards' }
-      );
-      currentIconAnim.onfinish = () => {
-        controlsIcon.style.opacity = '0';
-        controlsIcon.style.pointerEvents = 'none';
-        currentIconAnim = null;
-      };
-      controlsIcon.style.pointerEvents = 'none';
 
       const origin = getOrigin();
       controls.style.transformOrigin = origin;
@@ -120,7 +103,6 @@ export function initIcon() {
       isOpen = false;
 
       if (currentAnim) currentAnim.cancel();
-      if (currentIconAnim) currentIconAnim.cancel();
 
       const origin = getOrigin();
       controls.style.transformOrigin = origin;
@@ -139,20 +121,6 @@ export function initIcon() {
         controls.style.opacity = '';
         controls.classList.remove('open');
         currentAnim = null;
-      };
-
-      controlsIcon.style.opacity = '';
-      controlsIcon.style.pointerEvents = 'auto';
-      currentIconAnim = controlsIcon.animate(
-        [
-          { transform: 'scale(0.6) rotate(45deg)', opacity: '0' },
-          { transform: 'scale(1) rotate(0deg)',     opacity: '1' }
-        ],
-        { duration: CLOSE_DURATION, easing: EASING, fill: 'forwards' }
-      );
-      currentIconAnim.onfinish = () => {
-        controlsIcon.style.transform = '';
-        currentIconAnim = null;
       };
     }
 
