@@ -42,9 +42,21 @@
 .close-button {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 6px;
   background: transparent;
   border: none;
-  font-size: 2rem;
+  border-radius: 6px;
   cursor: pointer;
   color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.15s ease, background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.close-button:hover {
+  opacity: 1;
+  background: var(--color-panel-reset-bg);
 }
