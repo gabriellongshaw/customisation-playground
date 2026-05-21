@@ -124,7 +124,7 @@ export function initIcon() {
       };
     }
 
-    controlsIcon.addEventListener('click', openPanel);
+    controlsIcon.addEventListener('click', () => isOpen ? closePanel() : openPanel());
     closeControls.addEventListener('click', closePanel);
   }
 }
