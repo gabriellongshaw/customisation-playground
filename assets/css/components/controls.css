@@ -6,17 +6,20 @@
   border-radius: 12px;
   backdrop-filter: blur(0px);
   width: 260px;
+  height: 500px;
   display: none;
+  flex-direction: column;
   pointer-events: none;
   z-index: 100;
   transition: background 0.2s ease, color 0.2s ease, width 0.2s ease, border-radius 0.2s ease, backdrop-filter 0.2s ease;
   background-color: rgba(var(--color-panel-bg-base), 0.90);
   color: var(--color-panel-text);
-  max-height: 80vh;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .controls.open {
+  display: flex;
   pointer-events: auto;
 }
 
@@ -26,19 +29,25 @@
   align-items: center;
   margin-bottom: 10px;
   cursor: grab;
+  flex-shrink: 0;
 }
 
 .controls-header:active {
   cursor: grabbing;
 }
 
+.tab-buttons {
+  flex-shrink: 0;
+}
+
 .controls-content-wrapper {
+  flex: 1;
   overflow-y: auto;
-  max-height: calc(80vh - 100px);
   padding-right: 5px;
   margin-right: -5px;
   -webkit-overflow-scrolling: touch;
   scrollbar-color: transparent transparent;
+  min-height: 0;
 }
 
 .controls-content-wrapper:hover {
@@ -74,14 +83,24 @@
   font-size: 0.85rem;
 }
 
-@media (min-width: 600px) {
-  .controls {
-    width: 420px;
-  }
+.save-load-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
 }
 
-@media (min-width: 900px) {
-  .controls {
-    width: 520px;
-  }
+.save-load-buttons .reset-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-label {
+  display: inline-block;
+  transition: opacity 0.15s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-label.hide {
+  opacity: 0;
+  transform: scale(0.85);
 }

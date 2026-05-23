@@ -1,28 +1,33 @@
 import { hexToRgb } from '../core/utils.js';
 import { updateSliderFill, syncSliders } from '../core/sliders.js';
 import { getElements } from '../core/elements.js';
-import { getEffectiveTheme } from '../core/theme.js';
+import { getEffectiveTheme } from '../core/themeState.js';
 
 export function updatePanel() {
-  const { controls, panelBg, panelText, panelWidth, panelRadius, panelBlur, panelTransparency } = getElements();
+  const { controls, panelBg, panelText, panelWidth, panelHeight, panelRadius, panelBlur, panelTransparency, panelBorderColor, panelBorderWidth } = getElements();
 
   controls.style.setProperty('--color-panel-bg-base', hexToRgb(panelBg.value));
   controls.style.backgroundColor = `rgba(${hexToRgb(panelBg.value)}, ${panelTransparency.value / 100})`;
   controls.style.color = panelText.value;
   controls.style.width = panelWidth.value + 'px';
+  controls.style.height = panelHeight.value + 'px';
   controls.style.borderRadius = panelRadius.value + 'px';
   controls.style.backdropFilter = `blur(${panelBlur.value}px)`;
+  controls.style.border = panelBorderWidth.value > 0
+    ? `${panelBorderWidth.value}px solid ${panelBorderColor.value}`
+    : 'none';
 }
 
 export function initPanel() {
-  const { panelBg, panelText, panelWidth, panelRadius, panelBlur, panelTransparency, resetPanelBtn } = getElements();
+  const { panelBg, panelText, panelWidth, panelHeight, panelRadius, panelBlur, panelTransparency, panelBorderColor, panelBorderWidth, resetPanelBtn } = getElements();
 
   panelWidth.value = window.innerWidth >= 600 ? 360 : 300;
+  panelHeight.value = 500;
 
-  [panelBg, panelText, panelWidth, panelRadius, panelBlur, panelTransparency].forEach(input => {
+  [panelBg, panelText, panelWidth, panelHeight, panelRadius, panelBlur, panelTransparency, panelBorderColor, panelBorderWidth].forEach(input => {
     input.addEventListener('input', () => {
       updatePanel();
-      updateSliderFill(input);
+      if (input.type === 'range') updateSliderFill(input);
     });
   });
 
@@ -40,7 +45,10 @@ export function initPanel() {
     }
 
     panelWidth.value = window.innerWidth >= 600 ? 360 : 300;
+    panelHeight.value = 500;
     panelRadius.value = 12;
+    panelBorderColor.value = '#ffffff';
+    panelBorderWidth.value = 0;
 
     updatePanel();
     syncSliders();

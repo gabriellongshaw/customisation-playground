@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customisation Playground</title>
-  <meta name="description" content="An interactive customisation playground. Tweak the button, panel and icon to your liking.">
-  <meta name="keywords" content="Customisation Playground, cool button, interactive UI">
+  <meta name="description" content="An interactive customisation playground. Tweak the box, panel and icon to your liking.">
+  <meta name="keywords" content="Customisation Playground, interactive UI">
   <meta name="author" content="Gabriel Longshaw">
   <meta property="og:site_name" content="Customisation Playground">
   <meta property="og:title" content="Customisation Playground">
-  <meta property="og:description" content="An interactive customisation playground. Tweak the button, panel and icon to your liking.">
+  <meta property="og:description" content="An interactive customisation playground. Tweak the box, panel and icon to your liking.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Customisation Playground">
-  <meta name="twitter:description" content="An interactive customisation playground. Tweak the button, panel and icon to your liking.">
+  <meta name="twitter:description" content="An interactive customisation playground. Tweak the box, panel and icon to your liking.">
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/components/controls.css">
@@ -21,10 +21,11 @@
   <link rel="stylesheet" href="assets/css/components/buttons.css">
   <link rel="stylesheet" href="assets/css/components/tabs.css">
   <link rel="stylesheet" href="assets/css/components/icon.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
   <link rel="canonical" href="https://www.gabriellongshaw.co.uk/projects/customisation-playground">
 </head>
 <body class="light">
-  <div class="box" id="box">Customisable Button</div>
+  <div class="box" id="box">Customisable Box</div>
   <div class="controls" id="controlsBox">
     <div class="controls-header">
       <h2>Settings</h2>
@@ -37,7 +38,7 @@
     </div>
     <div class="tab-buttons">
       <button id="tabGeneral" class="active">General</button>
-      <button id="tabBox">Button Settings</button>
+      <button id="tabBox">Box Settings</button>
       <button id="tabControls">Panel Settings</button>
       <button id="tabIcon">Icon Settings</button>
     </div>
@@ -48,25 +49,52 @@
           <button id="lightModeBtn" class="theme-btn active" data-theme="light">Light Mode</button>
           <button id="darkModeBtn" class="theme-btn" data-theme="dark">Dark Mode</button>
         </div>
-        <button class="reset-button reset-all" id="resetAllBtn" style="margin-top: 15px;">Reset All to Default</button>
+        <label style="margin-top:14px;">Background Type</label>
+        <div class="theme-buttons">
+          <button id="bgTypeImage" class="theme-btn active">Image</button>
+          <button id="bgTypeColour" class="theme-btn">Colour</button>
+          <button id="bgTypeGradient" class="theme-btn">Gradient</button>
+        </div>
+        <div id="bgImageOptions">
+          <label style="margin-top:12px;">Image URL <input type="text" class="input-text" id="bgImageUrl" placeholder="https://..."></label>
+        </div>
+        <div id="bgColourOptions" style="display:none;">
+          <label style="margin-top:12px;">Background Colour <input type="color" class="input-color" id="bgSolidColour" value="#222222"></label>
+        </div>
+        <div id="bgGradientOptions" style="display:none;">
+          <label style="margin-top:12px;">Gradient Start <input type="color" class="input-color" id="bgGradientStart" value="#222222"></label>
+          <label>Gradient End <input type="color" class="input-color" id="bgGradientEnd" value="#000000"></label>
+          <label>Gradient Angle <input type="range" class="input-range" id="bgGradientAngle" min="0" max="360" value="180"></label>
+        </div>
+        <div class="save-load-buttons">
+          <button class="reset-button" id="saveSettingsBtn">Save Settings</button>
+          <button class="reset-button" id="loadSettingsBtn">Load Saved Settings</button>
+          <button class="reset-button" id="clearSettingsBtn">Clear Saved Settings</button>
+        </div>
+        <button class="reset-button reset-all" id="resetAllBtn" style="margin-top:15px;">Reset All to Default</button>
       </div>
       <div class="tab-content box-settings" id="boxSettings" style="display:none;">
-        <label>Text <input type="text" class="input-text" id="boxText" value="Cool Button"></label>
+        <label>Text <input type="text" class="input-text" id="boxText" value="Customisable Box"></label>
         <label>Background Color <input type="color" class="input-color" id="bgColor" value="#ffffff"></label>
         <label>Transparency <input type="range" class="input-range" id="transparency" min="0" max="100" value="5"></label>
         <label>Text Color <input type="color" class="input-color" id="textColor" value="#ffffff"></label>
         <label>Width <input type="range" class="input-range" id="boxWidth" min="100" max="400" value="200"></label>
         <label>Border Radius <input type="range" class="input-range" id="borderRadius" min="0" max="50" value="8"></label>
         <label>Blur (backdrop) <input type="range" class="input-range" id="blur" min="0" max="50" value="3"></label>
-        <button class="reset-button reset-box" id="resetBtn">Reset Button</button>
+        <label>Border Colour <input type="color" class="input-color" id="boxBorderColor" value="#ffffff"></label>
+        <label>Border Thickness <input type="range" class="input-range" id="boxBorderWidth" min="0" max="20" value="0"></label>
+        <button class="reset-button reset-box" id="resetBtn">Reset Box</button>
       </div>
       <div class="tab-content panel-settings" id="panelSettings" style="display:none;">
         <label>Panel Background <input type="color" class="input-color" id="panelBg" value="#ffffff"></label>
         <label>Panel Transparency <input type="range" class="input-range" id="panelTransparency" min="0" max="100" value="85"></label>
         <label>Panel Text Color <input type="color" class="input-color" id="panelText" value="#000000"></label>
         <label>Panel Width <input type="range" class="input-range" id="panelWidth" min="200" max="600" value="360"></label>
+        <label>Panel Height <input type="range" class="input-range" id="panelHeight" min="200" max="900" value="500"></label>
         <label>Panel Border Radius <input type="range" class="input-range" id="panelRadius" min="0" max="50" value="12"></label>
         <label>Panel Blur <input type="range" class="input-range" id="panelBlur" min="0" max="50" value="0"></label>
+        <label>Border Colour <input type="color" class="input-color" id="panelBorderColor" value="#ffffff"></label>
+        <label>Border Thickness <input type="range" class="input-range" id="panelBorderWidth" min="0" max="20" value="0"></label>
         <button class="reset-button reset-panel" id="resetPanelBtn">Reset Panel</button>
       </div>
       <div class="tab-content icon-settings" id="iconSettings" style="display:none;">
@@ -78,6 +106,8 @@
         <label>Icon Transparency <input type="range" class="input-range" id="iconTransparency" min="0" max="100" value="5"></label>
         <label>Icon Blur <input type="range" class="input-range" id="iconBlur" min="0" max="50" value="3"></label>
         <label>Icon Border Radius <input type="range" class="input-range" id="iconRadius" min="0" max="50" value="50"></label>
+        <label>Border Colour <input type="color" class="input-color" id="iconBorderColor" value="#ffffff"></label>
+        <label>Border Thickness <input type="range" class="input-range" id="iconBorderWidth" min="0" max="20" value="0"></label>
         <button class="reset-button reset-icon" id="resetIconBtn">Reset Icon</button>
       </div>
     </div>

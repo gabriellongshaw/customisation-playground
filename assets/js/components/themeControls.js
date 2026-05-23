@@ -1,5 +1,6 @@
 import { getElements } from '../core/elements.js';
 import { applyTheme, handleSystemThemeChange, setThemeSource } from '../core/theme.js';
+import { resetBackground } from './background.js';
 
 export function initThemeControls() {
   const { lightModeBtn, darkModeBtn, resetAllBtn, resetBtn, resetPanelBtn, resetIconBtn } = getElements();
@@ -33,6 +34,7 @@ export function initThemeControls() {
       resetBtn.click();
       resetPanelBtn.click();
       if (resetIconBtn) resetIconBtn.click();
+      resetBackground();
 
       handleSystemThemeChange();
     });

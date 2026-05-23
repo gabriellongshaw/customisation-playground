@@ -1,10 +1,10 @@
 import { hexToRgb, makeDraggable } from '../core/utils.js';
 import { updateSliderFill, syncSliders } from '../core/sliders.js';
 import { getElements } from '../core/elements.js';
-import { getEffectiveTheme } from '../core/theme.js';
+import { getEffectiveTheme } from '../core/themeState.js';
 
 export function updateIcon() {
-  const { controlsIcon, iconColor, iconBg, iconTransparency, iconBlur, iconRadius } = getElements();
+  const { controlsIcon, iconColor, iconBg, iconTransparency, iconBlur, iconRadius, iconBorderColor, iconBorderWidth } = getElements();
   const iconSvg = controlsIcon ? controlsIcon.querySelector('svg') : null;
 
   if (iconSvg && iconColor) iconSvg.style.color = iconColor.value;
@@ -16,16 +16,22 @@ export function updateIcon() {
 
   if (controlsIcon && iconBlur) controlsIcon.style.backdropFilter = `blur(${iconBlur.value}px)`;
   if (controlsIcon && iconRadius) controlsIcon.style.borderRadius = iconRadius.value + 'px';
+
+  if (controlsIcon && iconBorderColor && iconBorderWidth) {
+    controlsIcon.style.border = iconBorderWidth.value > 0
+      ? `${iconBorderWidth.value}px solid ${iconBorderColor.value}`
+      : 'none';
+  }
 }
 
 export function initIcon() {
-  const { controlsIcon, controls, closeControls, iconColor, iconBg, iconTransparency, iconBlur, iconRadius, resetIconBtn } = getElements();
+  const { controlsIcon, controls, closeControls, iconColor, iconBg, iconTransparency, iconBlur, iconRadius, iconBorderColor, iconBorderWidth, resetIconBtn } = getElements();
 
   if (iconColor && iconBg && iconTransparency && iconBlur && iconRadius) {
-    [iconColor, iconBg, iconTransparency, iconBlur, iconRadius].forEach(input => {
+    [iconColor, iconBg, iconTransparency, iconBlur, iconRadius, iconBorderColor, iconBorderWidth].forEach(input => {
       input.addEventListener('input', () => {
         updateIcon();
-        updateSliderFill(input);
+        if (input.type === 'range') updateSliderFill(input);
       });
     });
   }
@@ -45,6 +51,8 @@ export function initIcon() {
       }
 
       if (iconRadius) iconRadius.value = 50;
+      if (iconBorderColor) iconBorderColor.value = '#ffffff';
+      if (iconBorderWidth) iconBorderWidth.value = 0;
 
       updateIcon();
       syncSliders();
@@ -76,7 +84,7 @@ export function initIcon() {
 
       if (currentAnim) currentAnim.cancel();
 
-      controls.style.display = 'block';
+      controls.style.display = 'flex';
       controls.classList.add('open');
       void controls.offsetWidth;
 

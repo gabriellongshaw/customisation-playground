@@ -1,10 +1,10 @@
 import { hexToRgb } from '../core/utils.js';
 import { updateSliderFill, syncSliders } from '../core/sliders.js';
 import { getElements } from '../core/elements.js';
-import { getEffectiveTheme } from '../core/theme.js';
+import { getEffectiveTheme } from '../core/themeState.js';
 
 export function updateBox() {
-  const { box, boxText, bgColor, textColor, boxWidth, borderRadius, blur, transparency } = getElements();
+  const { box, boxText, bgColor, textColor, boxWidth, borderRadius, blur, transparency, boxBorderColor, boxBorderWidth } = getElements();
 
   box.textContent = boxText.value;
   box.style.setProperty('--color-box-bg-base', hexToRgb(bgColor.value));
@@ -13,27 +13,30 @@ export function updateBox() {
   box.style.width = boxWidth.value + 'px';
   box.style.borderRadius = borderRadius.value + 'px';
   box.style.backdropFilter = `blur(${blur.value}px)`;
+  box.style.border = boxBorderWidth.value > 0
+    ? `${boxBorderWidth.value}px solid ${boxBorderColor.value}`
+    : 'none';
 }
 
 export function initBox() {
-  const { boxText, bgColor, textColor, boxWidth, borderRadius, blur, transparency, resetBtn } = getElements();
+  const { boxText, bgColor, textColor, boxWidth, borderRadius, blur, transparency, boxBorderColor, boxBorderWidth, resetBtn } = getElements();
 
-  [boxText, bgColor, textColor, boxWidth, borderRadius, blur, transparency].forEach(input => {
+  [boxText, bgColor, textColor, boxWidth, borderRadius, blur, transparency, boxBorderColor, boxBorderWidth].forEach(input => {
     input.addEventListener('input', () => {
       updateBox();
-      updateSliderFill(input);
+      if (input.type === 'range') updateSliderFill(input);
     });
   });
 
   resetBtn.addEventListener('click', () => {
     if (getEffectiveTheme() === 'dark') {
-      boxText.value = 'Customisable Button';
+      boxText.value = 'Customisable Box';
       bgColor.value = '#111111';
       textColor.value = '#eeeeee';
       blur.value = 12;
       transparency.value = 50;
     } else {
-      boxText.value = 'Customisable Button';
+      boxText.value = 'Customisable Box';
       bgColor.value = '#ffffff';
       textColor.value = '#ffffff';
       blur.value = 3;
@@ -42,6 +45,8 @@ export function initBox() {
 
     boxWidth.value = 200;
     borderRadius.value = 8;
+    boxBorderColor.value = '#ffffff';
+    boxBorderWidth.value = 0;
 
     updateBox();
     syncSliders();

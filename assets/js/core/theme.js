@@ -3,23 +3,14 @@ import { updatePanel } from '../components/panel.js';
 import { updateIcon } from '../components/icon.js';
 import { syncSliders } from './sliders.js';
 import { getElements } from './elements.js';
+import { themeState, setThemeSource, getEffectiveTheme } from './themeState.js';
 
-export const themeState = { source: 'system' };
-
-export function setThemeSource(source) {
-  themeState.source = source;
-}
-
-export function getEffectiveTheme() {
-  if (themeState.source === 'system') {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  return themeState.source;
-}
+export { themeState, setThemeSource, getEffectiveTheme };
 
 export function applyTheme(theme) {
   const { body, root, panelBg, panelText, bgColor, textColor, iconBg, iconColor,
     blur, iconBlur, transparency, iconTransparency, panelBlur, panelTransparency,
+    boxBorderColor, boxBorderWidth, panelBorderColor, panelBorderWidth, iconBorderColor, iconBorderWidth,
     lightModeBtn, darkModeBtn } = getElements();
 
   const isDark = theme === 'dark';
@@ -85,6 +76,13 @@ export function applyTheme(theme) {
     root.style.setProperty('--color-box-shadow-inset', 'rgba(255, 255, 255, 0.3)');
     root.style.setProperty('--color-icon-shadow-inset', 'rgba(255, 255, 255, 0.3)');
   }
+
+  if (boxBorderColor) boxBorderColor.value = '#ffffff';
+  if (boxBorderWidth) boxBorderWidth.value = 0;
+  if (panelBorderColor) panelBorderColor.value = '#ffffff';
+  if (panelBorderWidth) panelBorderWidth.value = 0;
+  if (iconBorderColor) iconBorderColor.value = '#ffffff';
+  if (iconBorderWidth) iconBorderWidth.value = 0;
 
   updateBox();
   updatePanel();
