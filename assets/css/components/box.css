@@ -1,0 +1,24 @@
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  background-color: rgba(var(--color-box-bg-base), 0.05);
+  color: var(--color-box-text);
+  backdrop-filter: blur(3px);
+  box-shadow: inset 0 0 2px var(--color-box-shadow-inset);
+  padding: 10px 20px;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+  word-break: break-word;
+  transition: background 0.2s ease, color 0.2s ease, width 0.2s ease, border-radius 0.2s ease, backdrop-filter 0.2s ease;
+}
+
+.box:active {
+  cursor: grabbing;
+}

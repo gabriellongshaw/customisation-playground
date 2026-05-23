@@ -50,10 +50,21 @@ export function makeDraggable(el) {
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-    el.style.left = clientX - offsetX + 'px';
-    el.style.top = clientY - offsetY + 'px';
+    const rect = el.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const newLeft = clientX - offsetX;
+    const newTop = clientY - offsetY;
+
+    const clampedLeft = Math.max(0, Math.min(newLeft, vw - rect.width));
+    const clampedTop = Math.max(0, Math.min(newTop, vh - rect.height));
+
+    el.style.left = clampedLeft + 'px';
+    el.style.top = clampedTop + 'px';
+
     if (isControlsPanel) {
-      el.style.transform = 'scale(1)';
+      el.style.transform = 'none';
     } else {
       el.style.transform = 'none';
     }

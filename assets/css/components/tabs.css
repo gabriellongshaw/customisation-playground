@@ -1,7 +1,8 @@
 .tab-buttons {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 10px;
+  flex-shrink: 0;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
@@ -31,12 +32,13 @@
 
 .tab-buttons button {
   flex-shrink: 0;
-  padding: 6px 12px;
+  padding: 5px 10px;
   border: none;
   background: var(--color-panel-tab-inactive);
   color: var(--color-panel-tab-text);
   cursor: pointer;
   border-radius: 5px;
+  font-size: 0.8rem;
   transition: background 0.2s ease, color 0.2s ease;
 }
 

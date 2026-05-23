@@ -68,7 +68,40 @@ export function initIcon() {
     let isOpen = false;
     let currentAnim = null;
 
-    function getOrigin() {
+    function positionNearIcon() {
+      const iconRect = controlsIcon.getBoundingClientRect();
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      const panelW = controls.offsetWidth;
+      const panelH = controls.offsetHeight;
+
+      const iconCx = iconRect.left + iconRect.width / 2;
+      const iconCy = iconRect.top + iconRect.height / 2;
+
+      const gap = 12;
+      let left = iconRect.right + gap;
+      let top = iconRect.top;
+
+      if (left + panelW > vw - 8) {
+        left = iconRect.left - panelW - gap;
+      }
+      if (left < 8) {
+        left = Math.max(8, iconCx - panelW / 2);
+      }
+      if (top + panelH > vh - 8) {
+        top = vh - panelH - 8;
+      }
+      if (top < 8) {
+        top = 8;
+      }
+
+      controls.style.left = left + 'px';
+      controls.style.top = top + 'px';
+      controls.style.transform = 'none';
+    }
+
+    function getIconOrigin() {
       const iconRect = controlsIcon.getBoundingClientRect();
       const panelRect = controls.getBoundingClientRect();
       const iconCx = iconRect.left + iconRect.width / 2;
@@ -84,12 +117,19 @@ export function initIcon() {
 
       if (currentAnim) currentAnim.cancel();
 
+      controls.style.visibility = 'hidden';
       controls.style.display = 'flex';
       controls.classList.add('open');
+
       void controls.offsetWidth;
 
-      const origin = getOrigin();
+      positionNearIcon();
+
+      void controls.offsetWidth;
+
+      const origin = getIconOrigin();
       controls.style.transformOrigin = origin;
+      controls.style.visibility = '';
 
       currentAnim = controls.animate(
         [
@@ -100,7 +140,7 @@ export function initIcon() {
       );
 
       currentAnim.onfinish = () => {
-        controls.style.transform = '';
+        controls.style.transform = 'none';
         controls.style.opacity = '';
         currentAnim = null;
       };
@@ -112,7 +152,7 @@ export function initIcon() {
 
       if (currentAnim) currentAnim.cancel();
 
-      const origin = getOrigin();
+      const origin = getIconOrigin();
       controls.style.transformOrigin = origin;
 
       currentAnim = controls.animate(
@@ -125,7 +165,7 @@ export function initIcon() {
 
       currentAnim.onfinish = () => {
         controls.style.display = 'none';
-        controls.style.transform = '';
+        controls.style.transform = 'none';
         controls.style.opacity = '';
         controls.classList.remove('open');
         currentAnim = null;
